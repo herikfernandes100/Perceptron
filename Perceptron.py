@@ -7,6 +7,7 @@ TAXA_APRENDIZADO = 0.25
 
 import random
 import json
+import os
 
 class Perceptron:
 
@@ -40,7 +41,7 @@ class Perceptron:
             erro_total = 0
 
             for entradas, saida_esperada in dados:
-
+                
                 u = self.calcular_u(entradas)
                 saida_calculada = self.ativacao(u)
 
@@ -51,7 +52,7 @@ class Perceptron:
 
             historico.append(erro_total)
             epoca += 1
-            
+
             if erro_total == 0:
                 break
 
@@ -61,10 +62,34 @@ class Perceptron:
         u = self.calcular_u(entradas)
         return self.ativacao(u)
     
-    def salvar(self, caminho = "pesos.json"):
-        with open(caminho, 'w') as f:
-            json.dump(self.pesos, f)
-
-    def carregar(self, caminho = "pesos.json"):
+    def carregar(self, caminho="pesos.json"):
         with open(caminho, 'r') as f:
+            self.pesos = json.load(f)
+
+    def salvar_pesos(self):
+            # Pasta onde o script está
+            pasta = os.path.dirname(os.path.abspath(__file__))
+
+            # Nome base
+            nome_base = "pesos"
+            extensao = ".json"
+
+            # Primeiro arquivo
+            caminho = os.path.join(pasta, nome_base + extensao)
+
+            contador = 1
+            # Se existir, criar pesos_1.json, pesos_2.json...
+            while os.path.exists(caminho):
+                novo_nome = f"{nome_base}_{contador}{extensao}"
+                caminho = os.path.join(pasta, novo_nome)
+                contador += 1
+
+            # Salva os pesos
+            with open(caminho, "w") as f:
+                json.dump(self.pesos, f, indent=4)
+
+            print(f"Arquivo salvo em: {caminho}")
+
+    def carregar(self, caminho="pesos.json"):
+        with open(caminho, "r") as f:
             self.pesos = json.load(f)
