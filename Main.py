@@ -1,10 +1,11 @@
 from Perceptron import Perceptron
+import matplotlib.pyplot as plt
 
 class Main:
     
     @staticmethod
     def executar():
-        
+             
         
         # formato
         # dados = [
@@ -59,8 +60,8 @@ class Main:
             [-1.3970, 0.7141, 4.9263],
             [-1.8842, -0.2805, 1.2548],
         ]
-        
-        # Criar o perceptron e treinar
+
+        # Criar o perceptron e treinar        
         print("Treinando o perceptron...")
         p = Perceptron()
 
@@ -68,11 +69,21 @@ class Main:
 
         historico, epocas = p.treinar(dados)
 
-        #p.salvar_pesos("pesos.json")
-        
+        p.salvar_pesos()
+
         print("\nPesos finais:", p.pesos)
         print("\nHistórico de erro:", historico)
         print("\nTotal de épocas:", epocas)
+
+        # --- Gráfico da evolução do erro ---
+        plt.figure(figsize=(8,5))
+        plt.plot(range(1, epocas+1), historico, marker='o')
+        plt.title("Evolução do Erro por Época")
+        plt.xlabel("Épocas")
+        plt.ylabel("Erro Total")
+        plt.grid(True)
+        plt.show()
+        # ------------------------------------
 
         print("\n=== Testes ===")
         acertos = 0
@@ -85,7 +96,6 @@ class Main:
                 acertos += 1
 
         print(f"\nAcurácia: {acertos}/{len(dados)} = {acertos/len(dados)*100:.2f}%")
-
 
         print("\n=== Novos Dados ===")
         for x in novos_dados:
