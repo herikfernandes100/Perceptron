@@ -8,10 +8,10 @@ class Main:
         
         # formato
         # dados = [
-        #     ([0, 0], 0),
-        #     ([0, 1], 0),
-        #     ([1, 0], 0),
-        #     ([1, 1], 1)
+        #     ([0, 0 ,0], 0),
+        #     ([0, 0, 0], 0),
+        #     ([1, 0, 0], 0),
+        #     ([1, 1, 1], 1)
         # ]
 
         dados = [
@@ -63,7 +63,12 @@ class Main:
         # Criar o perceptron e treinar
         print("Treinando o perceptron...")
         p = Perceptron()
+
+        print("\nPesos iniciais:", p.pesos)
+
         historico, epocas = p.treinar(dados)
+
+        #p.salvar_pesos("pesos.json")
         
         print("\nPesos finais:", p.pesos)
         print("\nHistórico de erro:", historico)

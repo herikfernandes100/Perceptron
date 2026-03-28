@@ -21,8 +21,8 @@ class Perceptron:
             soma += self.pesos[i] * x[i]
         return soma
     
-    def atualizar_pesos(self, erro, x):
-        x = [-1] + x
+    def atualizar_pesos(self, erro, entradas):
+        x = [-1] + entradas
         for i in range(len(self.pesos)):
             self.pesos[i] += self.taxa_aprendizado * erro * x[i]
     
@@ -39,15 +39,15 @@ class Perceptron:
         while epoca < MAX_EPOCAS:
             erro_total = 0
 
-            for x, saida_esperada in dados:
+            for entradas, saida_esperada in dados:
 
-                u = self.calcular_u(x)
+                u = self.calcular_u(entradas)
                 saida_calculada = self.ativacao(u)
 
                 erro = saida_esperada - saida_calculada
                 erro_total += abs(erro)
 
-                self.atualizar_pesos(erro, x)
+                self.atualizar_pesos(erro, entradas)
 
             historico.append(erro_total)
             epoca += 1
