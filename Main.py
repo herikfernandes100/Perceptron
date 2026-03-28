@@ -75,14 +75,9 @@ class Main:
         print("\nHistórico de erro:", historico)
         print("\nTotal de épocas:", epocas)
 
-        # --- Gráfico da evolução do erro ---
-        plt.figure(figsize=(8,5))
-        plt.plot(range(1, epocas+1), historico, marker='o')
-        plt.title("Evolução do Erro por Época")
-        plt.xlabel("Épocas")
-        plt.ylabel("Erro Total")
-        plt.grid(True)
-        plt.show()
+
+        p.plotar_grafico(historico, epocas)
+
         # ------------------------------------
 
         print("\n=== Testes ===")

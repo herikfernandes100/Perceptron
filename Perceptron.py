@@ -8,6 +8,7 @@ TAXA_APRENDIZADO = 0.25
 import random
 import json
 import os
+import matplotlib.pyplot as plt
 
 class Perceptron:
 
@@ -57,6 +58,16 @@ class Perceptron:
                 break
 
         return historico, epoca
+
+    def plotar_grafico(self, historico, epocas):
+        
+        plt.figure(figsize=(8,5))
+        plt.plot(range(1, epocas+1), historico, marker='o')
+        plt.title("Evolução do Erro por Época")
+        plt.xlabel("Épocas")
+        plt.ylabel("Erro Total")
+        plt.grid(True)
+        plt.show()
 
     def prever(self, entradas):
         u = self.calcular_u(entradas)
