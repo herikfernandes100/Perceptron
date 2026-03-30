@@ -61,41 +61,13 @@ class Main:
             [-1.8842, -0.2805, 1.2548],
         ]
 
-        # Criar o perceptron e treinar        
-        print("Treinando o perceptron...")
         p = Perceptron()
 
-        print("\nPesos iniciais:", p.pesos)
-
-        historico, epocas = p.treinar(dados)
-
-        p.salvar_pesos()
-
-        print("\nPesos finais:", p.pesos)
-        print("\nHistórico de erro:", historico)
-        print("\nTotal de épocas:", epocas)
-
-
+        historico , epocas = p.treinar_completo(dados)
         p.plotar_grafico(historico, epocas)
-
-        # ------------------------------------
-
-        print("\n=== Testes ===")
-        acertos = 0
-
-        for x, esperado in dados:
-            previsto = p.prever(x)
-            print(f"Entrada: {x} | Esperado: {esperado} | Previsto: {previsto}")
-
-            if previsto == esperado:
-                acertos += 1
-
-        print(f"\nAcurácia: {acertos}/{len(dados)} = {acertos/len(dados)*100:.2f}%")
-
-        print("\n=== Novos Dados ===")
-        for x in novos_dados:
-            previsto = p.prever(x)
-            print(f"Entrada: {x} | Previsto: {previsto}")
+        
+        p.prever_treino(dados)
+        p.prever_completo(novos_dados)
 
 if __name__ == "__main__":
     Main.executar()

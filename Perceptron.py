@@ -104,3 +104,35 @@ class Perceptron:
     def carregar(self, caminho="pesos.json"):
         with open(caminho, "r") as f:
             self.pesos = json.load(f)
+
+    def treinar_completo(self, dados):
+        print("Treinando o perceptron...")
+        print("\nPesos iniciais:", self.pesos)
+
+        historico, epocas = self.treinar(dados)
+        self.salvar_pesos()
+
+        print("\nPesos finais:", self.pesos)
+        print("\nHistórico de erro:", historico)
+        print("\nTotal de épocas:", epocas)
+
+        return historico, epocas
+
+    def prever_treino(self, dados):
+        print("\n=== Testes ===")
+        acertos = 0
+
+        for x, esperado in dados:
+            previsto = self.prever(x)
+            print(f"Entrada: {x} | Esperado: {esperado} | Previsto: {previsto}")
+
+            if previsto == esperado:
+                acertos += 1
+
+        print(f"\nAcurácia: {acertos}/{len(dados)} = {acertos/len(dados)*100:.2f}%")
+
+    def prever_completo(self, novos_dados):
+        print("\n=== Novos Dados ===")
+        for x in novos_dados:
+            previsto = self.prever(x)
+            print(f"Entrada: {x} | Previsto: {previsto}")
