@@ -73,10 +73,6 @@ class Perceptron:
         u = self.calcular_u(entradas)
         return self.ativacao(u)
     
-    def carregar(self, caminho="pesos.json"):
-        with open(caminho, 'r') as f:
-            self.pesos = json.load(f)
-
     def salvar_pesos(self):
             # Pasta onde o script está
             pasta = os.path.dirname(os.path.abspath(__file__))
@@ -101,10 +97,16 @@ class Perceptron:
 
             print(f"Arquivo salvo em: {caminho}")
 
-    def carregar(self, caminho="pesos.json"):
+    def carregar_pesos(self, caminho):
+        if not os.path.exists(caminho):
+            print("Arquivo de pesos não encontrado!")
+            return
+
         with open(caminho, "r") as f:
             self.pesos = json.load(f)
 
+        print("Pesos carregados:", self.pesos)
+        
     def treinar_completo(self, dados):
         print("Treinando o perceptron...")
         print("\nPesos iniciais:", self.pesos)

@@ -63,10 +63,12 @@ class Main:
 
         p = Perceptron()
 
-        historico , epocas = p.treinar_completo(dados)
-        p.plotar_grafico(historico, epocas)
+        #historico , epocas = p.treinar_completo(dados)
+        #p.plotar_grafico(historico, epocas)
         
-        p.prever_treino(dados)
+        #p.prever_treino(dados)
+        
+        p.carregar_pesos("pesos.json")
         p.prever_completo(novos_dados)
 
 if __name__ == "__main__":
