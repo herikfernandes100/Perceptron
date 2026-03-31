@@ -23,10 +23,10 @@ class Perceptron:
             soma += self.pesos[i] * x[i]
         return soma
     
-    def atualizar_pesos(self, erro, entradas):
+    def atualizar_pesos(self, saida_esperada, saida_calculada, entradas):
         x = [-1] + entradas
         for i in range(len(self.pesos)):
-            self.pesos[i] += self.taxa_aprendizado * erro * x[i]
+            self.pesos[i] += self.taxa_aprendizado * (saida_esperada - saida_calculada) * x[i]
     
     def ativacao(self, u):
         if u >= 0:
@@ -36,25 +36,23 @@ class Perceptron:
         
     def treinar(self, dados):
         epoca = 0
+        erro = False
         historico = []
 
         while epoca < MAX_EPOCAS:
-            erro_total = 0
 
             for entradas, saida_esperada in dados:
                 
                 u = self.calcular_u(entradas)
                 saida_calculada = self.ativacao(u)
 
-                erro = saida_esperada - saida_calculada
-                erro_total += abs(erro)
+                if saida_esperada - saida_calculada != 0:
+                    self.atualizar_pesos(saida_esperada, saida_calculada, entradas)
+                    erro = True
 
-                self.atualizar_pesos(erro, entradas)
-
-            historico.append(erro_total)
             epoca += 1
 
-            if erro_total == 0:
+            if erro == False:
                 break
 
         return historico, epoca
