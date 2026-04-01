@@ -14,7 +14,7 @@ class Perceptron:
 
     def __init__(self):
         self.taxa_aprendizado = TAXA_APRENDIZADO
-        self.pesos = [random.random() for _ in range(4)]
+        self.pesos = [random.uniform(-1, 1) for _ in range(4)]
 
     def calcular_u(self, entradas):
         x = [-1] + entradas
@@ -72,10 +72,6 @@ class Perceptron:
     def prever(self, entradas):
         u = self.calcular_u(entradas)
         return self.ativacao(u)
-    
-    def carregar(self, caminho="pesos.json"):
-        with open(caminho, 'r') as f:
-            self.pesos = json.load(f)
 
     def salvar_pesos(self):
             # Pasta onde o script está
@@ -101,7 +97,7 @@ class Perceptron:
 
             print(f"Arquivo salvo em: {caminho}")
 
-    def carregar(self, caminho="pesos.json"):
+    def carregar_pesos(self, caminho="pesos.json"):
         with open(caminho, "r") as f:
             self.pesos = json.load(f)
 
